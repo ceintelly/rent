@@ -13,6 +13,8 @@ import { Reports } from './components/Reports';
 import { Settings } from './components/Settings';
 import { AuthForm } from './components/AuthForm';
 import { useAuth } from './hooks/useAuth';
+import { Notification } from './components/Notification';
+import { useNotificationContext } from './context/NotificationContext';
 import { 
   Home, 
   Building2, 
@@ -33,6 +35,7 @@ import { isOverdue } from './utils/dateUtils';
 
 function App() {
   const { user, loading: authLoading } = useAuth();
+  const { notifications, hideNotification } = useNotificationContext();
   const [isNavOpen, setIsNavOpen] = useState(false);
   
   const {
@@ -246,6 +249,12 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      {/* Notification System */}
+      <Notification 
+        notifications={notifications} 
+        onHide={hideNotification} 
+      />
+      
       {/* Top Bar */}
       <TopBar onToggleNav={handleToggleNav} />
       
